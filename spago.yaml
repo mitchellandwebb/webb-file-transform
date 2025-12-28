@@ -1,0 +1,53 @@
+package:
+  name: webb-file-transform
+  dependencies:
+    - aff
+    - arrays
+    - console
+    - effect
+    - foldable-traversable
+    - maybe
+    - monad-loops
+    - prelude
+    - strings
+    - transformers
+    - tuples
+    - unsafe-coerce
+    - webb-test
+    - webb-refer
+    - webb-monad
+    - webb-writer
+    - webb-stateful
+    - webb-random
+    - webb-parsing
+    - webb-file
+    - webb-directory
+    - profunctor-lenses
+    - parsing
+  test:
+    main: Test.Main
+    dependencies:
+      - spec
+      - spec-discovery
+      - spec-node
+      - webb-test
+workspace:
+  packageSet:
+    registry: 69.2.0
+  extraPackages:
+    spec-discovery: 8.2.0
+    webb-test: 0.0.1
+    webb-refer:
+      path: ../webb-refer
+    webb-monad: 0.0.2
+    webb-writer:
+      path: ../webb-writer
+    webb-stateful: 0.0.2
+    webb-random: 0.0.1
+    webb-parsing: 
+      path: ../webb-parsing
+    webb-file: 
+      path: ../webb-file
+    webb-directory:
+      path: ../webb-directory
+

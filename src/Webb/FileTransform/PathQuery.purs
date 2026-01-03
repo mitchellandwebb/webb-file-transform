@@ -12,7 +12,7 @@ import Webb.Array as Array
 import Webb.Directory.Data.Absolute (AbsolutePath, AbsPath)
 import Webb.Directory.Data.Absolute as Abs
 import Webb.Directory.Visitor as Visit
-import Webb.Monad.Prelude ((&&=), (||=))
+import Webb.Monad.Prelude ((&&=))
 import Webb.Set as Set
 
 {- Query for specific files. Includes the ability to query for specific file

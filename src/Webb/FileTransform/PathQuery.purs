@@ -39,7 +39,7 @@ queryExt self path ext = do queryAllFilter self path hasExt
     let string = Abs.unwrap file
     extNormal (Path.extname string) == extNormal ext
     
--- extensions need not include the "." at the front. So we remove it before comparing.
+-- extensions need notinclude the "." at the front. So we remove it before comparing.
 extNormal :: String -> String
 extNormal str = String.dropWhile (codepointIs ".") str
   where

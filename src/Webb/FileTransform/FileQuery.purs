@@ -30,15 +30,19 @@ queryByExt _self dir ext = runYieldToList do
   p <- PathQuery.newQuery
   paths <- PathQuery.queryExt p dir ext
   Fold.for_ paths \path -> do 
-    file <- File.newFile path
-    text <- File.readAllText file
-    pathRef <- newShowRef path
-    stringRef <- newShowRef text
+    fdata <- fileData path
+    yield fdata
     
-    let fileData = wrap
-          { source: path
-          , path: pathRef
-          , string: stringRef
-          } :: FileData
+fileData :: forall m. MonadAff m => Abs.AbsPath -> m FileData
+fileData path = do 
+  file <- File.newFile path
+  text <- File.readAllText file
+  pathRef <- newShowRef path
+  stringRef <- newShowRef text
 
-    yield fileData
+  let fdata = wrap
+        { source: path
+        , path: pathRef
+        , string: stringRef
+        } :: FileData
+  pure fdata

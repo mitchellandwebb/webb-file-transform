@@ -3,6 +3,7 @@ module Webb.FileTransform.Internal.FileData where
 import Prelude
 import Webb.State.Prelude
 
+import Data.Newtype (class Newtype)
 import Effect.Class (class MonadEffect)
 import Webb.Directory.Data.Absolute as Abs
 import Webb.FileTransform.Data.Path as Path
@@ -14,11 +15,15 @@ internal representation.
 -}
 
 
-newtype FileData = F
+newtype FileData = F FileData_
+
+type FileData_ = 
   { source :: Abs.AbsPath
   , path :: ShowRef Abs.AbsPath
   , string :: ShowRef String
   }
+  
+derive instance Newtype FileData _
   
 source :: forall m. MonadEffect m => FileData -> m Abs.AbsolutePath
 source (F s) = pure s.source

@@ -13,15 +13,16 @@ package:
     - transformers
     - tuples
     - unsafe-coerce
-    - webb-test
+    - webb-aff-list
     - webb-refer
     - webb-monad
-    - webb-writer
     - webb-stateful
     - webb-random
-    - webb-parsing
     - webb-file
     - webb-directory
+    - webb-array
+    - webb-map
+    - webb-set
     - profunctor-lenses
     - parsing
   test:
@@ -33,21 +34,18 @@ package:
       - webb-test
 workspace:
   packageSet:
-    registry: 69.2.0
+    registry: 69.7.0
   extraPackages:
     spec-discovery: 8.2.0
     webb-test: 0.0.1
-    webb-refer:
-      path: ../webb-refer
+    webb-refer: 0.0.3
     webb-monad: 0.0.2
-    webb-writer:
-      path: ../webb-writer
     webb-stateful: 0.0.2
     webb-random: 0.0.1
-    webb-parsing: 
-      path: ../webb-parsing
-    webb-file: 
-      path: ../webb-file
+    webb-file: 0.0.1
     webb-directory:
       path: ../webb-directory
-
+    webb-aff-list: 0.0.2
+    webb-array: 0.0.1
+    webb-set: 0.0.1
+    webb-map: 0.0.1

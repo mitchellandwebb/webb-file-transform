@@ -2,7 +2,7 @@ module Webb.FileTransform.Data.Path where
 
 import Prelude
 
-import Data.String as String
+import Webb.String as String
 import Node.Path as Path
 import Webb.Directory.Data.Absolute ((++))
 import Webb.Directory.Data.Absolute as Abs
@@ -26,26 +26,29 @@ extname path = let
 setExtname :: String -> Abs.AbsPath -> Abs.AbsPath
 setExtname str path = let 
   path' = withoutExt
-  str' = asExt
+  str' = extString
   in concat path' str'
   
   where
-  withoutExt :: String
+  withoutExt :: Abs.AbsPath
   withoutExt = let 
     dropCount = String.length (extname path)
     in Abs.modify (String.dropEnd dropCount) path
     
-  asExt :: String
-  asExt = normalizeExt str
+  extString :: String
+  extString = normalizeExt str
+  
+  hadExt :: Boolean
+  hadExt = path /= withoutExt
   
   concat :: Abs.AbsPath -> String -> Abs.AbsPath
-  concat path ext = 
-    if withoutExt == path then  
+  concat p ext = 
+    if hadExt then  
       -- No extension existed. We need to add the "."
-      Abs.modify (_ <> "." <> ext) path
+      Abs.modify (_ <> "." <> ext) p
     else 
       -- An extension existed. We dropped everything but the ".", so we can append directly
-      Abs.modify (_ <> ext) path
+      Abs.modify (_ <> ext) p
       
 -- Return the basename of the path. This is no longer an absolute path, but a fragment.
 basename :: Abs.AbsPath -> String

@@ -23,6 +23,7 @@ package:
     - webb-array
     - webb-map
     - webb-set
+    - webb-string
     - profunctor-lenses
     - parsing
     - node-path
@@ -47,6 +48,8 @@ workspace:
     webb-directory:
       path: ../webb-directory
     webb-aff-list: 0.0.2
-    webb-array: 0.0.1
+    webb-array: 0.0.2
     webb-set: 0.0.1
     webb-map: 0.0.1
+    webb-string:
+      path: ../webb-string

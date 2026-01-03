@@ -29,7 +29,8 @@
             "webb-random",
             "webb-refer",
             "webb-set",
-            "webb-stateful"
+            "webb-stateful",
+            "webb-string"
           ],
           "build_plan": [
             "aff",
@@ -111,6 +112,7 @@
             "webb-set",
             "webb-slot",
             "webb-stateful",
+            "webb-string",
             "webb-thread"
           ]
         },
@@ -779,7 +781,7 @@
     "extra_packages": {
       "spec-discovery": "8.2.0",
       "webb-aff-list": "0.0.2",
-      "webb-array": "0.0.1",
+      "webb-array": "0.0.2",
       "webb-directory": {
         "path": "../webb-directory"
       },
@@ -790,6 +792,9 @@
       "webb-refer": "0.0.3",
       "webb-set": "0.0.1",
       "webb-stateful": "0.0.2",
+      "webb-string": {
+        "path": "../webb-string"
+      },
       "webb-test": "0.0.1"
     }
   },
@@ -1984,8 +1989,8 @@
     },
     "webb-array": {
       "type": "registry",
-      "version": "0.0.1",
-      "integrity": "sha256-DKtrMVsbbewG5bd97qyO8zVPrzTyHISoY2MF3HzVetU=",
+      "version": "0.0.2",
+      "integrity": "sha256-n+gX7/W8grCu3oRqluO6W/2dj++Ma9KSYwd6tUWPDNM=",
       "dependencies": [
         "arrays",
         "foldable-traversable",
@@ -2181,6 +2186,21 @@
         "prelude",
         "tuples",
         "webb-monad",
+        "webb-refer"
+      ]
+    },
+    "webb-string": {
+      "type": "local",
+      "path": "../webb-string",
+      "dependencies": [
+        "arrays",
+        "maybe",
+        "monad-loops",
+        "prelude",
+        "strings",
+        "transformers",
+        "tuples",
+        "webb-array",
         "webb-refer"
       ]
     },

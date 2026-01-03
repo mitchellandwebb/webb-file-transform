@@ -39,14 +39,14 @@ setExtname :: forall m. MonadEffect m => FileData -> String -> m Unit
 setExtname (F s) name = do Path.setExtname name :> s.path
   
 -- Return the directory path for this file.
-dir :: forall m. MonadEffect m => FileData -> m Abs.AbsPath
-dir (F s) = do Path.dirpath <: s.path
+dirpath :: forall m. MonadEffect m => FileData -> m Abs.AbsPath
+dirpath (F s) = do Path.dirpath <: s.path
   
 -- Set the directory path for this file. This lets us move the file "informally" by
 -- setting data and calculating path changes, without affecting the file name.
 -- We change the metadata that represents the file -- and then we write it.
-setDir :: forall m. MonadEffect m => FileData -> Abs.AbsPath -> m Unit
-setDir (F s) p = do Path.setDirpath p :> s.path
+setDirpath :: forall m. MonadEffect m => FileData -> Abs.AbsPath -> m Unit
+setDirpath (F s) p = do Path.setDirpath p :> s.path
   
 text :: forall m. MonadEffect m => FileData -> m String
 text (F s) = do aread s.string

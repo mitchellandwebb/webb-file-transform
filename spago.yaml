@@ -25,6 +25,7 @@ package:
     - webb-set
     - profunctor-lenses
     - parsing
+    - node-path
   test:
     main: Test.Main
     dependencies:

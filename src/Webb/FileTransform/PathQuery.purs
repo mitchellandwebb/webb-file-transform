@@ -1,35 +1,52 @@
-module Webb.FileTransform.Query where
+module Webb.FileTransform.PathQuery where
 
 import Prelude
 import Webb.State.Prelude
 
+import Data.String as String
 import Data.Traversable as Traverse
 import Effect.Aff.Class (class MonadAff)
 import Effect.Class (class MonadEffect)
+import Node.Path as Path
 import Webb.Array as Array
 import Webb.Directory.Data.Absolute (AbsolutePath, AbsPath)
 import Webb.Directory.Data.Absolute as Abs
 import Webb.Directory.Visitor as Visit
-import Webb.Set as Set
 import Webb.Monad.Prelude ((&&=), (||=))
+import Webb.Set as Set
 
 {- Query for specific files. Includes the ability to query for specific file
   paths as well.
 -}
 
-newtype Query = Q Unit
+newtype PathQuery = Q Unit
 
-newQuery :: forall m. MonadEffect m => m Query
+newQuery :: forall m. MonadEffect m => m PathQuery
 newQuery = pure $ Q unit
 
 -- We query all paths. To avoid recursive symlinks (as best we can), we store the 
 -- absolute paths that we have already seen, and we AVOID going upward or sideways 
 -- in the paths. We want to pretend this is a tree, not a graph.
-queryAll :: forall m. MonadAff m => Query -> AbsolutePath -> m (Array AbsolutePath)
+queryAll :: forall m. MonadAff m => PathQuery -> AbsolutePath -> m (Array AbsolutePath)
 queryAll self path = do queryAllFilter self path (\_ -> true)
 
+-- Query for the extension. We normalize the extensions for the '.' before comparing
+-- them to each other.
+queryExt :: forall m. MonadAff m => PathQuery -> AbsolutePath -> String -> m (Array AbsolutePath)
+queryExt self path ext = do queryAllFilter self path hasExt
+  where
+  hasExt file = do 
+    let string = Abs.unwrap file
+    extNormal (Path.extname string) == extNormal ext
+    
+-- extensions need not include the "." at the front. So we remove it before comparing.
+extNormal :: String -> String
+extNormal str = String.dropWhile (codepointIs ".") str
+  where
+  codepointIs s cp = (String.fromCodePointArray [cp] == s)
+
 queryAllFilter :: forall m. MonadAff m => 
-  Query -> AbsolutePath -> (AbsolutePath -> Boolean) -> m (Array AbsolutePath)
+  PathQuery -> AbsolutePath -> (AbsolutePath -> Boolean) -> m (Array AbsolutePath)
 queryAllFilter _ path f = do 
   visited <- newShowRef (Set.empty)
   files <- newShowRef []

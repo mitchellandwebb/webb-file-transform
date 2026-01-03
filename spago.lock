@@ -12,6 +12,7 @@
             "foldable-traversable",
             "maybe",
             "monad-loops",
+            "node-path",
             "parsing",
             "prelude",
             "profunctor-lenses",
